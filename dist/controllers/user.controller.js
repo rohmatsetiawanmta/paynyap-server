@@ -22,4 +22,27 @@ const getAll = (req, res) => {
         });
     });
 };
-exports.default = { getAll };
+const addUser = (req, res) => {
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const username = req.body.username;
+    const phoneNumber = req.body.phoneNumber;
+    const password = req.body.password;
+    user_1.default
+        .createUser(firstName, lastName, username, phoneNumber, password)
+        .then((users) => {
+        res.status(201).send({
+            isError: false,
+            message: 'Created',
+            result: users,
+        });
+    })
+        .catch((err) => {
+        res.status(500).send({
+            isError: true,
+            message: 'Error',
+            error: err,
+        });
+    });
+};
+exports.default = { getAll, addUser };
